@@ -35,7 +35,7 @@ struct Contact
 int main()
 {
     int choice;
-    string del_name;
+    string search_name;
     int addcount = 0;
 
     Contact contacts[100] = {""};
@@ -66,10 +66,10 @@ int main()
         case 2:
             del();
             cout << "Which contact would you like to delete?" << endl;
-            cin >> del_name;
+            cin >> search_name;
             for (int i = 0; i < 100; i++)
             {
-                if (contacts[i].name == del_name)
+                if (contacts[i].name == search_name)
                 {
                     contacts[i].name = "";
                 }
@@ -91,13 +91,13 @@ int main()
             break;
         case 5:
             search();
-            cout << "Which contact would you like to delete?" << endl;
-            cin >> del_name;
+            cout << "Which contact would you like to search?" << endl;
+            cin >> search_name;
             for (int i = 0; i < 100; i++)
             {
-                if (contacts[i].name == del_name)
+                if (contacts[i].name == search_name)
                 {
-                    contacts[i].name = "";
+                    cout << contacts[i].name << endl;
                 }
             }
             break;
