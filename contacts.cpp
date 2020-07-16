@@ -13,10 +13,12 @@ Maldives National University (MNU)
 */
 
 #include <iostream>
+#include <string>
+
 using namespace std;
 
 void menu();
-void add();
+string add();
 void del();
 void update();
 void view();
@@ -25,49 +27,82 @@ void count();
 void sort();
 void exit();
 
+struct Contact
+{
+    string name;
+};
+
 int main()
 {
-
-    // Display menu
-    menu();
-
-    // Ask user to input choice
     int choice;
-    cout << "Enter your choice: " << endl;
-    cin >> choice;
+    string del_name;
+    int addcount = 0;
 
-    // Call function based on the choice from user
-    switch (choice)
-    {
-    case 1:
-        add();
-        break;
-    case 2:
-        del();
-        break;
-    case 3:
-        update();
-        break;
-    case 4:
-        view();
-        break;
-    case 5:
-        search();
-        break;
-    case 6:
-        count();
-        break;
-    case 7:
-        sort();
-        break;
-    case 8:
-        exit();
-        break;
+    Contact contacts[100] = {""};
     
-    default:
-        break;
-    }
+    do
+    { 
+        // Display menu
+        menu();
 
+        // Ask user to input choice
+        if (cin.fail())
+        {
+            // clear error state
+            cin.clear();
+            // discard 'bad' character(s)
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << "Enter your choice: " << endl;
+        cin >> choice;
+
+        // Call function based on the choice from user
+        switch (choice)
+        {
+        case 1:
+            contacts[addcount].name = add();
+            addcount++;
+            break;
+        case 2:
+            del();
+            cout << "Which contact would you like to delete?" << endl;
+            cin >> del_name;
+            for (int i = 0; i < 100; i++)
+            {
+                if (contacts[i].name == del_name)
+                {
+                    contacts[i].name = "";
+                }
+            }
+            
+            break;
+        case 3:
+            update();
+            break;
+        case 4:
+            view();
+            for (int i = 0; i < 100; i++)
+            {
+                if (contacts[i].name != "")
+                {
+                    cout << contacts[i].name << endl;
+                }
+            }
+            break;
+        case 5:
+            search();
+            break;
+        case 6:
+            count();
+            break;
+        case 7:
+            sort();
+            break;
+        
+        default:
+            break;
+        }
+    } while (choice != 8);
 }
 
 void menu()
@@ -86,9 +121,12 @@ void menu()
     cout << endl;
 }
 
-void add()
+string add()
 {
-
+    string  name;
+    cout << "Enter name: " << endl;
+    cin >> name;
+    return name;
 }
 void del()
 {
