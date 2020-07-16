@@ -91,6 +91,15 @@ int main()
             break;
         case 5:
             search();
+            cout << "Which contact would you like to delete?" << endl;
+            cin >> del_name;
+            for (int i = 0; i < 100; i++)
+            {
+                if (contacts[i].name == del_name)
+                {
+                    contacts[i].name = "";
+                }
+            }
             break;
         case 6:
             count();
