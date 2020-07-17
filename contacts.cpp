@@ -14,29 +14,44 @@ Maldives National University (MNU)
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
-
-void menu();
-string add();
-void del();
-void update();
-void view();
-void search();
-void count();
-void sort();
-void exit();
 
 struct Contact
 {
     string name;
 };
 
+void menu();
+string add();
+void del();
+string update();
+void view();
+void search();
+void count();
+// void sort();
+void exit();
+
+bool compareTwoContacts(Contact a, Contact b)
+{ 
+    // If names are not same then 
+    // returns true for lower letter 
+    if (a.name != b.name ) 
+        return a.name < b.name; 
+} 
+
+void sortcontacts(Contact a[], int n)
+{
+    sort(a, a+100, compareTwoContacts);
+}
+
 int main()
 {
     int choice;
+    int n = 100;
     string search_name;
-    int addcount = 0;
+    int count = 0;
 
     Contact contacts[100] = {""};
     
@@ -60,8 +75,14 @@ int main()
         switch (choice)
         {
         case 1:
-            contacts[addcount].name = add();
-            addcount++;
+            for (int i = 0; i < 100; i++)
+            {
+                if (contacts[i].name == "")
+                {
+                    contacts[i].name = add();
+                    break;
+                }
+            }
             break;
         case 2:
             del();
@@ -77,7 +98,17 @@ int main()
             
             break;
         case 3:
-            update();
+            cout << "Enter the contact to be updated" << endl;
+            cin >> search_name;
+            for (int i = 0; i < 100; i++)
+            {
+                if (contacts[i].name == search_name)
+                {
+                    contacts[i].name = update();
+                    break;
+                }
+            }
+            
             break;
         case 4:
             view();
@@ -102,10 +133,24 @@ int main()
             }
             break;
         case 6:
-            count();
+            for (int i = 0; i < 100; i++)
+            {
+                if (contacts[i].name != "")
+                {
+                    count++;
+                }
+            }
+            cout << "Total contacts: " << count << endl;
             break;
         case 7:
-            sort();
+            sortcontacts(contacts, n);
+            for (int i = 0; i < 100; i++)
+            {
+                if (contacts[i].name != "")
+                {
+                    cout << contacts[i].name << endl;
+                }
+            }
             break;
         
         default:
@@ -141,9 +186,12 @@ void del()
 {
 
 }
-void update()
+string update()
 {
-
+    string  name;
+    cout << "Enter name: " << endl;
+    cin >> name;
+    return name;
 }
 void view()
 {
@@ -157,11 +205,13 @@ void count()
 {
 
 }
-void sort()
-{
+// void sort()
+// {
 
-}
+// }
 void exit()
 {
     
 }
+
+
