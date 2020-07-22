@@ -61,7 +61,7 @@ void add(vector<Contact> &contacts)
     contacts.push_back({temp_name, temp_pnum});
 }
 
-// captures name to be deleted and deletes element from vector
+// captures name to be deleted and deletes element containing the contact data from vector
 void deleteC(vector<Contact> &contacts)
 {
     string temp_name;
@@ -76,7 +76,7 @@ void deleteC(vector<Contact> &contacts)
             return;
         }
     }
-    cout << "Contact cannot be found";
+    cout << "Contact cannot be found" << endl;
     
 }
 
@@ -99,7 +99,7 @@ void update(vector<Contact> &contacts)
             return;
         }
     }
-    cout << "Contact cannot be found";
+    cout << "Contact cannot be found" << endl;
 }
 
 // prints all contacts with their respective phone numbers
@@ -116,7 +116,7 @@ void view(vector<Contact> &contacts)
     cout << "====================================================================" << endl;
 }
 
-// captures input from user to search contact names and prints details of searched name
+// captures input from user to search contact name and prints details of searched name
 void search(vector<Contact> &contacts)
 {
     string temp_name;
@@ -126,12 +126,11 @@ void search(vector<Contact> &contacts)
     {
         if (contacts[i].name == temp_name)
         {
-            cout << contacts[i].name << endl;
-            cout << contacts[i].phonenum << endl;
+            cout << contacts[i].name << "\t" << contacts[i].phonenum << endl;
             return;
         }
     }
-    cout << "Contact cannot be found";
+    cout << "Contact cannot be found" << endl;
 }
 
 // captures input from user, counts the names and prints out the result
@@ -141,6 +140,8 @@ void charContactCount(vector<Contact> &contacts)
     int count = 0;
     cout << "Input character for contact count: " << endl;
     cin >> temp_char;
+
+    // counting loop
     for (size_t i = 0; i < contacts.size(); i++)
     {
         if (contacts[i].name[0] == temp_char)
@@ -149,6 +150,7 @@ void charContactCount(vector<Contact> &contacts)
         }
     }
 
+    // print count result
     if (count == 0)
     {
     cout << "There is no contact starting with the specified character" << endl;
@@ -159,7 +161,7 @@ void charContactCount(vector<Contact> &contacts)
     }
 }
 
-// compares and returns the name of two variables in struct element
+// returns boolean result after comparing name variables in two struct elements
 bool compareNames(const Contact& a, const Contact& b)
 { 
     return a.name < b.name; 
@@ -177,13 +179,18 @@ int main()
 {
     int choice;
 
+    // create a dynamic array to store contacts
     vector<Contact> contacts;
 
+    // do-while loop to execute the menu and exit only when user inputs choice for exit
     do
     {
+        // clear cin buffer at the beginning of each loop
         clearCin();
+
         printMenu();
 
+        // switch case to direct user to menu function based on choice
         switch (inputChoice(choice))
         {
         case 1:
@@ -194,11 +201,12 @@ int main()
             break;
         case 3:
             update(contacts);
+            break;
         case 4:
             view(contacts);
             break;
         case 5:
-            update(contacts);
+            search(contacts);
             break;
         case 6:
             charContactCount(contacts);
